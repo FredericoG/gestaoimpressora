@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meu Sistema{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'cadastrar_equipamento' %}">Cadastrar Equipamento</a></li>
+                <li><a href="{% url 'cadastrar_item' %}">Cadastrar Item</a></li>
+                <li><a href="{% url 'cadastrar_troca' %}">Cadastrar Troca</a></li>
+                <li><a href="{% url 'cadastrar_contador' %}">Cadastrar Contador</a></li>
+                <!-- Adicione outros links conforme necessário -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        <!-- Conteúdo específico da página será inserido aqui -->
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Meu Sistema. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

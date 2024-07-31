@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Sucesso{% endblock %}
+
+{% block content %}
+    <h2>Cadastro realizado com sucesso!</h2>
+    {% if page == 'cadastrar_equipamento' %}
+        <a href="{% url 'cadastrar_equipamento' %}">Cadastrar novo equipamento</a>
+    {% elif page == 'cadastrar_item' %}
+        <a href="{% url 'cadastrar_item' %}">Cadastrar novo item</a>
+    {% elif page == 'cadastrar_troca' %}
+        <a href="{% url 'cadastrar_troca' %}">Cadastrar nova troca</a>
+    {% elif page == 'cadastrar_contador' %}
+        <a href="{% url 'cadastrar_contador' %}">Cadastrar novo contador</a>
+    {% else %}
+        <a href="{% url 'cadastrar_equipamento' %}">Cadastrar novo equipamento</a>
+        <a href="{% url 'cadastrar_item' %}">Cadastrar novo item</a>
+        <a href="{% url 'cadastrar_troca' %}">Cadastrar nova troca</a>
+        <a href="{% url 'cadastrar_contador' %}">Cadastrar novo contador</a>
+    {% endif %}
+{% endblock %}

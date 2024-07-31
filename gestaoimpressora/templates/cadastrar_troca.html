@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastrar Troca{% endblock %}
+
+{% block content %}
+    <h2>Cadastro de Peças e Insumos</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <caption>Cadastro peças e insumos</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Copiadora</th>
+                    <th scope="col">Serial</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Código da peça</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Contador</th>
+                    <th scope="col">Data da troca</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ form.equipamento }}</td>
+                    <td id="serial">{{ form.equipamento.field.queryset.get(pk=form.equipamento.value()).serial if form.equipamento.value else '' }}</td>
+                    <td id="tipo">{{ form.equipamento.field.queryset.get(pk=form.equipamento.value()).tipo if form.equipamento.value else '' }}</td>
+                    <td>{{ form.item }}</td>
+                    <td id="codigo">{{ form.item.field.queryset.get(pk=form.item.value()).codigo if form.item.value else '' }}</td>
+                    <td>{{ form.quantidade }}</td>
+                    <td>{{ form.contador }}</td>
+                    <td>{{ form.data_troca }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit">Cadastrar</button>
+    </form>
+    {% if form.errors %}
+        <div class="errors">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <script>
+        const equipamentoSelect = document.querySelector('select[name="equipamento"]');
+        const itemSelect = document.querySelector('select[name="item"]');
+        const serialTd = document.getElementById('serial');
+        const tipoTd = document.getElementById('tipo');
+        const codigoTd = document.getElementById('codigo');
+
+        equipamentoSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            if (selectedOption) {
+                const serial = selectedOption.getAttribute('data-serial');
+                const tipo = selectedOption.getAttribute('data-tipo');
+                serialTd.textContent = serial;
+                tipoTd.textContent = tipo;
+            } else {
+                serialTd.textContent = '';
+                tipoTd.textContent = '';
+            }
+        });
+
+        itemSelect.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            if (selectedOption) {
+                const codigo = selectedOption.getAttribute('data-codigo');
+                codigoTd.textContent = codigo;
+            } else {
+                codigoTd.textContent = '';
+            }
+        });
+    </script>
+{% endblock %}
